@@ -1,10 +1,5 @@
-<table>
-  <tbody>
-    <tr>
-      <th><legend><%=l :title_shift_schedule_settings %></legend></th>
-      <td>
-        <input type="number" id="budget_buffer" min = "0" max="100" value="<%= settings['buffer'] %>" name="settings[buffer]" >
-      </td>
-    </tr>
-  </tbody>
-</table>
+<p>
+  <label><%=l :title_shift_schedule_settings %></label>
+  <input type="number" id="budget_buffer" min = "0" max="100" value="<%= settings['buffer'] %>" name="settings[buffer]">
+  <em class="info">in Prozent</em>
+</p>

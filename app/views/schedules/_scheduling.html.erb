@@ -20,23 +20,21 @@
     <% @users.each do |user| %>
       <tr>
         <td <% if (user.id == User.current.id) %> style="background-color: Lavender;" <% end %>>
-          <%= "#{user.firstname} #{user.lastname}" %>
+          <%= "#{user.firstname} #{user.lastname} (#{total_time(user)})" %>
         </td>
         <% @versions.each do |version| %>
           <td>
             <% if User.current.allowed_to?(:edit_schedules, @project) && !past_week?(@curr_date) %>
-              <input id="<%="#{user.id}|#{version.id}"%>" name="<%="#{user.id}|#{version.id}"%>"
+              Soll: <input id="<%="#{user.id}|#{version.id}"%>" name="<%="#{user.id}|#{version.id}"%>"
               size = "6" type="text" value="<%= @schedhash[[user.id, version.id]] %>"/>
             <% else %>
-              <%= @schedhash[[user.id, version.id]] %>
-            <% end %>
-            <% if past_week?(@curr_date) %>
-              <%= "(#{user_logged_time(user, version, @logged_times)})" %>
-            <% end %>
+               Soll: <%= @schedhash[[user.id, version.id]] %>
+            <% end %><br/>
+            Ist: <%= user_logged_time(user, version, @logged_times) %>
           </td>
         <% end %>
         <td <% if (ava_time(user, @scheduled_times) < sum_user_time(user, @versions, @schedhash)) %> style="background-color: #ba0022;" <%end%>>
-          <%= "#{sum_user_time(user, @versions, @schedhash)} / #{ava_time(user, @scheduled_times)} | (#{total_time(user)})" %>
+          <%= "#{sum_user_time(user, @versions, @schedhash)} / #{ava_time(user, @scheduled_times)}" %>
         </td>
       </tr>
     <% end %>

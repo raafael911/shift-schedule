@@ -10,7 +10,7 @@ class SchedulesController < ApplicationController
     if session[:project_id]
       pr = Project.find(session[:project_id])
       if (user_has_permission?(User.current, pr))
-        @project = pr;
+        @project = pr
         redirect_to controller: 'schedules', action: 'view'
       else
         session.delete(:project_id)
@@ -99,7 +99,7 @@ class SchedulesController < ApplicationController
   end
 
   def users
-    @curr_date = Time.now
+    @curr_date = params[:schedule_date] || Time.now
     @project = Project.find(session[:project_id])
     @users = get_users_current(@project)
     @versions = Schedule.find_by_sql("SELECT DISTINCT schedules.version_id, versions.name AS version_name,
