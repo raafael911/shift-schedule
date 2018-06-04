@@ -13,3 +13,10 @@ function idSelect(id, ask) {
   }
   return false;
 }
+
+function userViewChangeYear() {
+  var selection = $("select[name='year']").val();
+  var href = location.origin + location.pathname;
+
+  window.location = href + '?schedule_date=' + selection;
+}

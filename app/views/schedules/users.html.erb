@@ -5,7 +5,7 @@
 
 <div class="container">
   <div class="head">
-    <h2 class="title"><%= l :lbl_view_users %> : <%= "#{@curr_date.year}" %> <%= select_tag(:year, options_for_select(year_options, @curr_date.year)) %></h2>
+    <h2 class="title"><%= l :lbl_view_users %> : <%= select_tag(:year, options_for_select(year_options, @curr_date.year), onchange: 'userViewChangeYear();') %></h2>
   </div>
   <div class="main">
     <div style="margin: 20px;">

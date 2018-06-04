@@ -99,7 +99,7 @@ class SchedulesController < ApplicationController
   end
 
   def users
-    @curr_date = params[:schedule_date] || Time.now
+    @curr_date = date_from_year(params[:schedule_date])
     @project = Project.find(session[:project_id])
     @users = get_users_current(@project)
     @versions = Schedule.find_by_sql("SELECT DISTINCT schedules.version_id, versions.name AS version_name,
@@ -113,6 +113,16 @@ class SchedulesController < ApplicationController
 ############################################################################################################################################
 ############################################################################################################################################
 private
+  def date_from_year(year)
+    date = Time.now
+
+    unless year.nil?
+      date = date.change({year: year})
+    end
+
+    date
+  end
+
   #load the project for the purpose of authorizing
   def require_project
     if (!session[:project_id] && params[:_id] && ((params[:_id].to_i).is_a? Integer))
